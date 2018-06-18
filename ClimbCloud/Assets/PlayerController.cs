@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,14 +31,20 @@ public class PlayerController : MonoBehaviour
 
         float spX = Mathf.Abs(this.rig.velocity.x);
 
-        if(spX<this.maxWS)
+        if (spX < this.maxWS)
         {
             this.rig.AddForce(transform.right * key * this.walkF);
         }
-        if(key!=0)
+        if (key != 0)
         {
             transform.localScale = new Vector3(key, 1, 1);
         }
         this.ani.speed = spX / 2.0f;
+
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("ゴール");
+        SceneManager.LoadScene("ClearScene");
     }
 }
